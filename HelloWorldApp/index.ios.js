@@ -262,26 +262,164 @@ import React, {Component} from "react";
 //8.0、处理文本输入
 //TextInput是一个允许用户输入文本的基础组件。它有一个名为onChangeText的属性，这个属性接受一个函数，此函数会在文本变化的时候回调
 //另外还有一个名为onSubmitEditing的属性，会在文本被提交后调用。
-import {AppRegistry, Text, TextInput, View} from "react-native";
-class HelloWorldApp extends Component{
-	constructor(props){
-		super(props);
-		this.state = {text: " "};
-	}
+// import {AppRegistry, Text, TextInput, View} from "react-native";
+// class HelloWorldApp extends Component{
+// 	constructor(props){
+// 		super(props);
+// 		this.state = {text: " "};
+// 	}
 
+// 	render(){
+// 		return (
+// 			<View style={{padding: 10}}>
+// 				<TextInput
+// 					style = {{height:40}}
+// 					placeholder = "type here to translate!"
+// 					onChangeText = {(text) =>this.setState({text})}
+// 				/>
+// 				<Text style={{padding:10, fontSize:42}}>
+// 					{this.state.text.split(" ").map((word) => word && "🍕").join(" ")}
+// 				</Text>
+// 			</View>
+// 		);
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+
+//8.0、使用ScrollView
+//ScrollView是一个通用可滚动的容器，可以在其中放置多个组件和容器，而这些容器并不需要同类型。ScrollView不仅可以垂直滚动，还能水平滚动(horizontal)
+// import{AppRegistry, ScrollView, Image, Text, View} from "react-native";
+// class HelloWorldApp extends Component{
+// 	render(){
+// 		return(
+// 			<ScrollView>
+// 				<Text style={{fontSize:96}}>Scroll me plz</Text>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Text style={{fontSize:20}}>If you like</Text>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Text style={{fontSize:96}}>Scroll down</Text>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Text style={{fontSize:96}}>What is the best</Text>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Text style={{fontSize:96}}>Framework around?</Text>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Image source={require("./img/apple.png")}/>
+// 				<Text style={{fontSize:96}}>React Native</Text>
+// 			</ScrollView>
+// 		)
+// 	}
+// }
+
+
+
+
+
+
+
+
+//9.0、ListView组件用于显示一个垂直的滚动列表，其中的元素之间结构近似而仅数据不同
+//ListView更适合长列表数据，且元素个数可以增删。和ScrollView不同的是，ListView并不立刻渲染所有元素，而是有限渲染可见的元素。
+//ListView组件必须的两个属性是dataSource和renderRow。dataSource是列表的数据源，而renderRow则逐个解析数据源中的数据，然后返回一个设定好格式的组件来渲染。
+// import {AppRegistry, ListView, Text, View} from "react-native";
+// class HelloWorldApp extends Component{
+// 	//初始化模拟数据
+// 	constructor(props){
+// 		super(props);
+// 		const ds = new ListView.DataSource({rowHasChanged:(r1,r2) => r1 !== r2});
+// 		this.state = {
+// 			dataSource : ds.cloneWithRows([
+// 				"john","Joel","james","jimmy","jackson","jillian","julie","devin"
+// 			])
+// 		};
+// 	}
+
+// 	render(){
+// 		return(
+// 			<View style={{flex:1, paddingTop:22}}>
+// 			<ListView
+// 				dataSource = {this.state.dataSource}
+// 				renderRow = {(rowData) => <Text>{rowData}</Text>}
+// 			/>
+// 			</View> 
+// 		);
+// 	}
+// }
+
+
+
+
+
+
+
+
+//10.网络 
+
+
+
+
+//11.0 使用导航器跳转页面
+//Navigator    
+//场景(Scene)的概念与使用
+import {AppRegistry, Navigator, Text, View} from "react-native";
+
+import MyScene from "./MyScene";
+
+class HelloWorldApp extends Component{
 	render(){
 		return (
-			<View style={{padding: 10}}>
-				<TextInput
-					style = {{height:40}}
-					placeholder = "type here to translate!"
-					onChangeText = {(text) =>this.setState({text})}
-				/>
-				<Text style={{padding:10, fontSize:42}}>
-					{this.state.text.split(" ").map((word) => word && "🍕").join(" ")}
-				</Text>
-			</View>
-		);
+			<Navigator
+				initialRoute = {{title: "My Initial Scene", index:0}}
+				renderScene = {(route, Navigator) =>
+					<MyScene
+						title={route.title}
+
+						//function to call when a new scene should be displayed
+						onForward={() =>{
+							const nextIndex = route.index + 1;
+							Navigator.push({
+								title:"Scene" + nextIndex,
+								index: nextIndex,
+							});
+						}}
+
+						//funtion to call to go back to the privious scene
+						onBack={() =>{
+							if (route.index > 0) {
+								Navigator.pop();
+							};
+						}}
+					/>
+
+				}
+			/>
+		)
 	}
 }
 
@@ -308,8 +446,66 @@ class HelloWorldApp extends Component{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //注册应用（registerComponent）后才能正确渲染。只把应用作为一个整体注册一次，而不是每个组件/模块都注册
 AppRegistry.registerComponent("HelloWorldApp",()=>HelloWorldApp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

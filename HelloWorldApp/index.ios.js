@@ -387,42 +387,82 @@ import React, {Component} from "react";
 //11.0 使用导航器跳转页面
 //Navigator    
 //场景(Scene)的概念与使用
-import {AppRegistry, Navigator, Text, View} from "react-native";
+// import {AppRegistry, Navigator, Text, View} from "react-native";
 
-import MyScene from "./MyScene";
+// import MyScene from "./MyScene";
 
-class HelloWorldApp extends Component{
-	render(){
-		return (
-			<Navigator
-				initialRoute = {{title: "My Initial Scene", index:0}}
-				renderScene = {(route, Navigator) =>
-					<MyScene
-						title={route.title}
+// class HelloWorldApp extends Component{
+// 	render(){
+// 		return (
+// 			<Navigator
+// 				initialRoute = {{title: "My Initial Scene", index:0}}
+// 				renderScene = {(route, Navigator) =>
+// 					<MyScene
+// 						title={route.title}
 
-						//function to call when a new scene should be displayed
-						onForward={() =>{
-							const nextIndex = route.index + 1;
-							Navigator.push({
-								title:"Scene" + nextIndex,
-								index: nextIndex,
-							});
-						}}
+// 						//function to call when a new scene should be displayed
+// 						onForward={() =>{
+// 							const nextIndex = route.index + 1;
+// 							Navigator.push({
+// 								title:"Scene" + nextIndex,
+// 								index: nextIndex,
+// 							});
+// 						}}
 
-						//funtion to call to go back to the privious scene
-						onBack={() =>{
-							if (route.index > 0) {
-								Navigator.pop();
-							};
-						}}
-					/>
+// 						//funtion to call to go back to the privious scene
+// 						onBack={() =>{
+// 							if (route.index > 0) {
+// 								Navigator.pop();
+// 							};
+// 						}}
+// 					/>
 
-				}
-			/>
-		)
+// 				}
+// 			/>
+// 		)
+// 	}
+// }
+
+
+
+
+
+
+
+//12、动画
+import {AppRegistry,Animated, Image} from "react-native";
+class HelloWorldApp extends React.Component{
+	constructor(props:any){
+		super(props);
+		this.state = {
+			bounceValue: new Animated.value(0),
+		};
 	}
-}
 
+	render():ReactElement{
+		return(
+			<Animated.Image   //可选的基本组件 Image、Text、View
+				source = {{uri:"http://i.imgur.com/XMKOH81.jpg"}}
+				style={{
+					flex:1,
+					transform:[      //"transform"是一个有序数组，动画按顺序排序
+						{scale: this.state.bounceValue},  //将bounceValue的值赋给scale
+					]
+				}}
+			/>
+		);
+	}
+
+	componentDidMount(){
+	this.state.bounceValue.setValue(1.5);   //设置一个较大的初始值
+	Animated.spring(            //可选的动画类型 spring, decay, timing
+		this.state.bounceValue,   //将 bounceValue值动画化
+		{ 
+			toValue: 0.8,           //将值以动画的形式改成一个较小值
+			friction: 1,
+		}
+	).start();                //开始执行动画
+}}
 
 
 

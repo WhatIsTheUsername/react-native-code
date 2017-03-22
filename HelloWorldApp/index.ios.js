@@ -430,39 +430,39 @@ import React, {Component} from "react";
 
 
 //12、动画
-import {AppRegistry,Animated, Image} from "react-native";
-class HelloWorldApp extends React.Component{
-	constructor(props:any){
-		super(props);
-		this.state = {
-			bounceValue: new Animated.value(0),
-		};
-	}
+// import {AppRegistry,Animated, Image} from "react-native";
+// class HelloWorldApp extends React.Component{
+// 	constructor(props:any){
+// 		super(props);
+// 		this.state = {
+// 			bounceValue: new Animated.value(0),
+// 		};
+// 	}
 
-	render():ReactElement{
-		return(
-			<Animated.Image   //可选的基本组件 Image、Text、View
-				source = {{uri:"http://i.imgur.com/XMKOH81.jpg"}}
-				style={{
-					flex:1,
-					transform:[      //"transform"是一个有序数组，动画按顺序排序
-						{scale: this.state.bounceValue},  //将bounceValue的值赋给scale
-					]
-				}}
-			/>
-		);
-	}
+// 	render():ReactElement{
+// 		return(
+// 			<Animated.Image   //可选的基本组件 Image、Text、View
+// 				source = {{uri:"http://i.imgur.com/XMKOH81.jpg"}}
+// 				style={{
+// 					flex:1,
+// 					transform:[      //"transform"是一个有序数组，动画按顺序排序
+// 						{scale: this.state.bounceValue},  //将bounceValue的值赋给scale
+// 					]
+// 				}}
+// 			/>
+// 		);
+// 	}
 
-	componentDidMount(){
-	this.state.bounceValue.setValue(1.5);   //设置一个较大的初始值
-	Animated.spring(            //可选的动画类型 spring, decay, timing
-		this.state.bounceValue,   //将 bounceValue值动画化
-		{ 
-			toValue: 0.8,           //将值以动画的形式改成一个较小值
-			friction: 1,
-		}
-	).start();                //开始执行动画
-}}
+// 	componentDidMount(){
+// 	this.state.bounceValue.setValue(1.5);   //设置一个较大的初始值
+// 	Animated.spring(            //可选的动画类型 spring, decay, timing
+// 		this.state.bounceValue,   //将 bounceValue值动画化
+// 		{ 
+// 			toValue: 0.8,           //将值以动画的形式改成一个较小值
+// 			friction: 1,
+// 		}
+// 	).start();                //开始执行动画
+// }}
 
 
 
